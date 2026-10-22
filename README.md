@@ -177,10 +177,29 @@ runs/<scenario>/<seed>/
   Laplace evidence) and compares the leaders by nested sampling. Proposed expressions are
   token-whitelisted before sympy parses them. Every call is cached in `runs/llm_cache`
   (keyed by a hash of the request; the one part of `runs/` that is committed), so runs
-  replay offline. A first run reads `ANTHROPIC_API_KEY`. Tested end to end with a
-  scripted client (power law recovered on `precessing_power_law`, an injected expression
-  refused, an offline replay identical); **the sweep has not been run against the real API**
-  — a first run needs Anthropic credentials and is billed.
+  replay offline. A first run reads `ANTHROPIC_API_KEY`.
+- **`llm.hypothesize` evaluation** (`bench/llm_hypothesize.yaml`, 10 scenarios × 2 seeds,
+  against `classical.lsq` with `family: conic`; 49 calls, 177k input / 72.5k output tokens,
+  ≈ $2.2). The law is recovered on `gr_like_precession` (holdout 0.9″ against 101″ for the
+  conic), `precessing_power_law` (5–17″ against 19,900″) and `hidden_perturber`
+  (11–23″ against 47″). It stops after one call on `mars_like`, and finds the hyperbola on
+  the third call on `hyperbolic_comet` seed 0. Failures:
+  - `hyperbolic_comet` seed 1 crashes ("no starting point"): the loop always starts from
+    `conic-elliptic` and has no fallback.
+  - `yukawa`: `central-yukawa` is proposed in the first round on both seeds, but the MAP
+    fit lands at λ = 7.07 and 0.113 (truth 2). Registered force families get no law-parameter
+    grid starts, unlike LLM-written laws.
+  - `hooke_trap`: Claude never proposes `central-hooke`, and `central-power-law` cannot
+    reach it (n ∈ [1, 3.5]).
+  - Bounds hit repeatedly: ε = ±0.01 (`central-newton-plus-inverse-cube`) and
+    log μ = 1 (`central-power-law`).
+  - Kinematic paths (`epicycle_truth`, `rectangle`, `figure_eight`): the response schema
+    has no "not dynamical" verdict, so every run claims a spurious law.
+
+  Claude's reasoning is mostly sound (apsidal angle π/√(3−n), sign of precession), and it
+  repeatedly flags local minima and bound-pinned fits in its analyses. The summary still
+  reports residual RMS/σ although σ is fitted, so the ratio is always 1. Rejected proposals
+  (e.g. an invalid parameter name) are not reported back to Claude.
 - **Explorer.** `jt bench report` also writes `explorer.html` (plotly, self-contained): any
   result column against any other, coloured and filtered at will.
 - Not started: new domains (pendulum, Lotka–Volterra, …) and real-data ingestion.
