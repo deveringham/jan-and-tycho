@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Environments and secrets
+.venv/
+.env
+.env.*
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.import_linter_cache/
+.pyright/
+.coverage
+.coverage.*
+htmlcov/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Generated outputs: runs, sweeps and figures are reproducible from scenarios/ and bench/.
+# The LLM response cache is the exception: those calls are billed and are what makes an
+# llm.hypothesize run replayable, so it is committed.
+runs/*
+!runs/llm_cache/
+sbi-logs/
+*.log
+
+# PySR / Julia artefacts if a run writes outside its run directory
+outputs/
+hall_of_fame*.csv*
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store

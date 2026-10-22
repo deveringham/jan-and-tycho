@@ -1,0 +1,22 @@
+[project]
+name = "jt-bench"
+version = "0.1.0"
+description = "The bench: orchestrates Tycho, Jan and Rudolf; the `jt` CLI."
+requires-python = ">=3.11"
+dependencies = ["jt-core", "tycho", "jan", "rudolf", "typer>=0.12"]
+
+[project.scripts]
+jt = "jt_bench.cli:app"
+
+[tool.uv.sources]
+jt-core = { workspace = true }
+tycho = { workspace = true }
+jan = { workspace = true }
+rudolf = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jt_bench"]

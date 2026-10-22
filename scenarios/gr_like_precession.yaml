@@ -1,0 +1,26 @@
+name: gr_like_precession
+description: >-
+  Newton plus a small ε/r³ term (f = −GM/r² (1 + ε/r), ε = 3e−4 AU): a tiny, GR-like
+  perihelion precession. Can a universal differential equation see it?
+duration_days: 7300
+holdout_fraction: 0.25
+knowledge_tier: T1
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+bodies:
+  - id: target
+    truth:
+      type: central_force
+      law: newton_plus_inverse_cube
+      epsilon_au: 3.0e-4
+      elements: {q: 1.381, e: 0.0934, i_deg: 1.85, Omega_deg: 49.6, omega_deg: 286.5, t_p: 120.0}
+schedule:
+  type: regular
+  cadence_days: 10
+  jitter_days: 2
+  visibility:
+    min_solar_elongation_deg: 15
+    dropout_prob: 0.2
+noise:
+  - {type: gaussian, sigma_arcsec: 10}

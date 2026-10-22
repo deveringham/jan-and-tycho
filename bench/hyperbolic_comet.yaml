@@ -1,0 +1,11 @@
+name: hyperbolic_comet
+# Phase 3 acceptance: bayes.nested assigns > 0.95 to e > 1.
+scenarios: [scenarios/hyperbolic_comet.yaml]
+strategies: [bayes.nested, classical.lsq]
+strategy_overrides:
+  classical.lsq: {family: [ellipse, conic]}
+seeds: {start: 0, count: 5}
+viz:
+  per_run: first_seed
+  comparison:
+    - {figure: leaderboard}

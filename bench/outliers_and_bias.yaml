@@ -1,0 +1,12 @@
+name: outliers_and_bias
+# Phase 3 acceptance: robust likelihoods cut the holdout RMS by ≥ 2× vs Gaussian ones.
+scenarios: [scenarios/outliers_and_bias.yaml]
+strategies: [classical.lsq, bayes.mcmc]
+strategy_overrides:
+  classical.lsq: {loss: [linear, cauchy]}
+  bayes.mcmc: {likelihood: [gaussian, student_t]}
+seeds: {start: 0, count: 5}
+viz:
+  per_run: first_seed
+  comparison:
+    - {figure: leaderboard}

@@ -1,0 +1,156 @@
+{
+ "request": {
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "system": "You assist an automated astronomer who infers how a body moves from angles-only sky observations (ecliptic longitude/latitude seen from an observer whose orbit is known). Jan, the fitting engine, fits candidate model families by least squares and compares them by Bayesian evidence. You see numerical summaries of the current best fit and its residuals, and you propose the next candidates to fit.\n\nA candidate is either a registered family (by exact name) or a new central force law: the radial acceleration f(r) in AU/day^2 (negative = attractive) as an expression in r (heliocentric distance, AU), GM (the Sun's, 2.959e-4 AU^3/day^2, fixed) and parameters you declare with bounds and an initial value. Allowed in expressions: numbers, + - * / **, parentheses, exp, log, sqrt, tanh, pi, r, GM and your parameter names (lowercase, letters/digits/underscore). Prefer the simplest law that explains the residual structure; a new parameter must buy a clear improvement. Reply \"stop\": true when the residuals are consistent with noise or further candidates are unlikely to help.",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Data and current best fit:\n{\n \"best_family\": \"central-power-law\",\n \"best_fit_parameters\": {\n  \"Omega\": 0.8661,\n  \"cos_i\": 0.9995,\n  \"e\": 0.1232,\n  \"lambda0\": 3.684,\n  \"log_a\": 0.4275,\n  \"log_mu\": 8.25e-05,\n  \"n\": 2.05,\n  \"varpi\": 0.08571\n },\n \"heliocentric_distance_range_au\": [\n  1.395,\n  1.727\n ],\n \"n_observations\": 360,\n \"noise_sigma_arcsec\": 63.2,\n \"noise_sigma_source\": \"fitted\",\n \"residual_periodogram_peaks\": [\n  {\n   \"period_days\": 60.9,\n   \"power\": 0.049\n  },\n  {\n   \"period_days\": 436.0,\n   \"power\": 0.031\n  },\n  {\n   \"period_days\": 90.7,\n   \"power\": 0.027\n  }\n ],\n \"residual_rms_arcsec\": 63.2,\n \"residual_rms_over_sigma\": 1.0,\n \"residuals_by_heliocentric_distance_au\": [\n  {\n   \"from\": 1.395,\n   \"mean_east_arcsec\": 7.585,\n   \"mean_north_arcsec\": 10.44,\n   \"rms_arcsec\": 59.47,\n   \"to\": 1.407\n  },\n  {\n   \"from\": 1.407,\n   \"mean_east_arcsec\": -14.72,\n   \"mean_north_arcsec\": -26.02,\n   \"rms_arcsec\": 60.42,\n   \"to\": 1.437\n  },\n  {\n   \"from\": 1.437,\n   \"mean_east_arcsec\": 4.813,\n   \"mean_north_arcsec\": -20.62,\n   \"rms_arcsec\": 65.89,\n   \"to\": 1.521\n  },\n  {\n   \"from\": 1.521,\n   \"mean_east_arcsec\": 18.26,\n   \"mean_north_arcsec\": 13.58,\n   \"rms_arcsec\": 65.53,\n   \"to\": 1.607\n  },\n  {\n   \"from\": 1.607,\n   \"mean_east_arcsec\": -17.03,\n   \"mean_north_arcsec\": -7.913,\n   \"rms_arcsec\": 65.06,\n   \"to\": 1.653\n  },\n  {\n   \"from\": 1.653,\n   \"mean_east_arcsec\": -0.5909,\n   \"mean_north_arcsec\": -8.485,\n   \"rms_arcsec\": 69.11,\n   \"to\": 1.695\n  },\n  {\n   \"from\": 1.695,\n   \"mean_east_arcsec\": -6.496,\n   \"mean_north_arcsec\": 12.37,\n   \"rms_arcsec\": 65.47,\n   \"to\": 1.718\n  },\n  {\n   \"from\": 1.718,\n   \"mean_east_arcsec\": 5.997,\n   \"mean_north_arcsec\": -17.77,\n   \"rms_arcsec\": 53.26,\n   \"to\": 1.727\n  }\n ],\n \"residuals_by_time\": [\n  {\n   \"from\": 19.33,\n   \"mean_east_arcsec\": 10.78,\n   \"mean_north_arcsec\": -11.35,\n   \"rms_arcsec\": 62.43,\n   \"to\": 567.6\n  },\n  {\n   \"from\": 567.6,\n   \"mean_east_arcsec\": 14.48,\n   \"mean_north_arcsec\": -8.411,\n   \"rms_arcsec\": 65.01,\n   \"to\": 1147.0\n  },\n  {\n   \"from\": 1147.0,\n   \"mean_east_arcsec\": -9.159,\n   \"mean_north_arcsec\": -1.153,\n   \"rms_arcsec\": 62.32,\n   \"to\": 1676.0\n  },\n  {\n   \"from\": 1676.0,\n   \"mean_east_arcsec\": -12.56,\n   \"mean_north_arcsec\": -13.71,\n   \"rms_arcsec\": 64.26,\n   \"to\": 2276.0\n  },\n  {\n   \"from\": 2276.0,\n   \"mean_east_arcsec\": -4.229,\n   \"mean_north_arcsec\": -12.09,\n   \"rms_arcsec\": 57.19,\n   \"to\": 2756.0\n  },\n  {\n   \"from\": 2756.0,\n   \"mean_east_arcsec\": -6.321,\n   \"mean_north_arcsec\": 7.726,\n   \"rms_arcsec\": 69.67,\n   \"to\": 3275.0\n  },\n  {\n   \"from\": 3275.0,\n   \"mean_east_arcsec\": -6.351,\n   \"mean_north_arcsec\": -3.205,\n   \"rms_arcsec\": 59.14,\n   \"to\": 3843.0\n  },\n  {\n   \"from\": 3843.0,\n   \"mean_east_arcsec\": 7.353,\n   \"mean_north_arcsec\": -8.017,\n   \"rms_arcsec\": 75.68,\n   \"to\": 4271.0\n  },\n  {\n   \"from\": 4271.0,\n   \"mean_east_arcsec\": -14.0,\n   \"mean_north_arcsec\": 0.05046,\n   \"rms_arcsec\": 55.9,\n   \"to\": 4881.0\n  },\n  {\n   \"from\": 4881.0,\n   \"mean_east_arcsec\": 17.29,\n   \"mean_north_arcsec\": -5.335,\n   \"rms_arcsec\": 57.75,\n   \"to\": 5468.0\n  }\n ],\n \"span_days\": 5449.0,\n \"two_half_ellipse_fits\": {\n  \"delta_varpi_deg_per_orbit\": 9.269,\n  \"period_days_first_half\": 718.1,\n  \"period_days_second_half\": 718.6\n }\n}\n\nCandidates fitted so far (log-evidence, Laplace approximation):\n[\n {\n  \"family\": \"central-power-law\",\n  \"law\": \"f(r) = -C*r**(-n) with {'C': 0.0002959, 'n': 2.05}\",\n  \"ln_evidence\": 4708.687\n },\n {\n  \"family\": \"perturbed-conic\",\n  \"law\": \"f(r) = -GM/r**2 with {'m_pert': 0.002048, 'a_pert': 2.457}\",\n  \"ln_evidence\": 2516.893\n },\n {\n  \"family\": \"central-newton-plus-inverse-cube\",\n  \"law\": \"f(r) = -GM/r**2*(1 + eps/r) with {'eps': 0.01}\",\n  \"ln_evidence\": 1512.93\n },\n {\n  \"family\": \"conic-elliptic\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": 1437.828\n }\n]\n\nRegistered families: {\"central-hooke\": \"f = -k r (integrated)\", \"central-newton-plus-inverse-cube\": \"f = -GM/r^2 (1 + eps/r) (integrated)\", \"central-power-law\": \"f = -C r^-n, free n and C (integrated)\", \"central-yukawa\": \"f = -GM/r^2 (1 + r/lam) exp(-r/lam) (integrated)\", \"circle\": \"circular Keplerian orbit (4 parameters)\", \"conic-elliptic\": \"Keplerian ellipse under Newtonian gravity (6 elements)\", \"conic-hyperbolic\": \"Keplerian hyperbola (unbound)\", \"epicycles\": \"Ptolemaic geocentric deferent + epicycle\", \"equant-circle\": \"Kepler's vicarious hypothesis: eccentric circle with an equant\", \"perturbed-conic\": \"Newton + one unseen planet on a circular ecliptic orbit (mass, radius, longitude; integrated)\"}\n\nPropose up to 3 new candidates (not already fitted), or stop."
+   }
+  ],
+  "output_config": {
+   "effort": "high",
+   "format": {
+    "type": "json_schema",
+    "schema": {
+     "type": "object",
+     "properties": {
+      "analysis": {
+       "type": "string"
+      },
+      "stop": {
+       "type": "boolean"
+      },
+      "proposals": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "properties": {
+         "kind": {
+          "type": "string",
+          "enum": [
+           "registered",
+           "central_radial"
+          ]
+         },
+         "family": {
+          "type": "string",
+          "description": "registered: exact name"
+         },
+         "slug": {
+          "type": "string",
+          "description": "central_radial: short id"
+         },
+         "radial": {
+          "type": "string",
+          "description": "central_radial: f(r)"
+         },
+         "params": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "lower": {
+             "type": "number"
+            },
+            "upper": {
+             "type": "number"
+            },
+            "initial": {
+             "type": "number"
+            },
+            "log_scale": {
+             "type": "boolean"
+            }
+           },
+           "required": [
+            "name",
+            "lower",
+            "upper",
+            "initial",
+            "log_scale"
+           ],
+           "additionalProperties": false
+          }
+         },
+         "rationale": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind",
+         "family",
+         "slug",
+         "radial",
+         "params",
+         "rationale"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "analysis",
+      "stop",
+      "proposals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "betas": [
+   "server-side-fallback-2026-07-01"
+  ],
+  "fallbacks": "default"
+ },
+ "response": {
+  "parsed": {
+   "analysis": "The central power law with n\u22482.05 fits to the noise level. Residual RMS/\u03c3 is 1.0, although \u03c3 was fitted. Per-bin mean offsets of about 10\u201320\u2033 (roughly 36 points per bin) agree with \u03c3/\u221aN \u2248 10\u2033, the periodogram powers are tiny, and there is no trend with distance or time.\n\nThe two-half-ellipse precession of 9.27\u00b0/orbit matches the power-law apsidal angle \u03c0/\u221a(3\u2212n): for n = 2.05 that gives about 9.2\u00b0/orbit. This points to a real non-Newtonian central force.\n\nThe fitted log_mu \u2248 8e-5 means C \u2248 GM. A power law with C fixed at GM saves one parameter and should raise the evidence via the Occam factor.\n\nThe registered Newton + inverse-cube fit has eps = 0.01, which looks pinned at a bound. The observed precession needs eps \u2248 0.16\u00b7a/2\u03c0 \u2248 0.04 AU. A re-fit with wider bounds is a fair alternative test of the functional form, although r spans only 1.4\u20131.73 AU, so the two forms are nearly degenerate.\n\nThese are the two last cheap checks. Beyond them, further candidates are unlikely to help.",
+   "stop": false,
+   "proposals": [
+    {
+     "kind": "central_radial",
+     "family": "",
+     "slug": "power-law-fixed-gm",
+     "radial": "-GM*r**(-n)",
+     "params": [
+      {
+       "name": "n",
+       "lower": 1.5,
+       "upper": 2.5,
+       "initial": 2.05,
+       "log_scale": false
+      }
+     ],
+     "rationale": "The best fit has C \u2248 GM (log_mu \u2248 0). Fixing C = GM removes one parameter while keeping the precession-producing exponent, so it should improve the evidence if the fit quality is unchanged."
+    },
+    {
+     "kind": "central_radial",
+     "family": "",
+     "slug": "newton-inv-cube-wide",
+     "radial": "-GM/r**2*(1 + eps/r)",
+     "params": [
+      {
+       "name": "eps",
+       "lower": -0.5,
+       "upper": 0.5,
+       "initial": 0.04,
+       "log_scale": false
+      }
+     ],
+     "rationale": "The registered inverse-cube fit appears pinned at eps = 0.01. The observed 9.3\u00b0/orbit precession requires eps \u2248 0.04 AU. This tests a physically different single-parameter perturbation against the power law."
+    }
+   ]
+  },
+  "model": "claude-opus-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+   "input_tokens": 3632,
+   "output_tokens": 1566
+  }
+ }
+}

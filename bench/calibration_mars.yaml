@@ -1,0 +1,13 @@
+name: calibration_mars
+# Phase 2 acceptance: 95% credible intervals from bayes.hmc should cover the true elements
+# in 90–99% of 50 seeds on mars_like (T1, 60″).
+scenarios: [scenarios/mars_like.yaml]
+strategies: [bayes.hmc, bayes.mcmc, classical.lsq]
+seeds: {start: 0, count: 50}
+timeout_minutes: 30
+viz:
+  per_run: first_seed
+  animations: first_seed
+  comparison:
+    - {figure: calibration}
+    - {figure: accuracy_vs_runtime}

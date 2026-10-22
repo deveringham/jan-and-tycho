@@ -1,0 +1,148 @@
+{
+ "request": {
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "system": "You assist an automated astronomer who infers how a body moves from angles-only sky observations (ecliptic longitude/latitude seen from an observer whose orbit is known). Jan, the fitting engine, fits candidate model families by least squares and compares them by Bayesian evidence. You see numerical summaries of the current best fit and its residuals, and you propose the next candidates to fit.\n\nA candidate is either a registered family (by exact name) or a new central force law: the radial acceleration f(r) in AU/day^2 (negative = attractive) as an expression in r (heliocentric distance, AU), GM (the Sun's, 2.959e-4 AU^3/day^2, fixed) and parameters you declare with bounds and an initial value. Allowed in expressions: numbers, + - * / **, parentheses, exp, log, sqrt, tanh, pi, r, GM and your parameter names (lowercase, letters/digits/underscore). Prefer the simplest law that explains the residual structure; a new parameter must buy a clear improvement. Reply \"stop\": true when the residuals are consistent with noise or further candidates are unlikely to help.",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Data and current best fit:\n{\n \"best_family\": \"conic-elliptic\",\n \"best_fit_parameters\": {\n  \"Omega\": 5.806,\n  \"cos_i\": 0.9627,\n  \"e\": 0.01682,\n  \"lambda0\": 0.02261,\n  \"log_a\": 0.0002769,\n  \"varpi\": 1.757\n },\n \"heliocentric_distance_range_au\": [\n  0.9835,\n  1.017\n ],\n \"n_observations\": 83,\n \"noise_sigma_arcsec\": 162000.0,\n \"noise_sigma_source\": \"fitted\",\n \"residual_periodogram_peaks\": [\n  {\n   \"period_days\": 208.0,\n   \"power\": 0.19\n  },\n  {\n   \"period_days\": 186.0,\n   \"power\": 0.18\n  },\n  {\n   \"period_days\": 166.0,\n   \"power\": 0.16\n  }\n ],\n \"residual_rms_arcsec\": 529100.0,\n \"residual_rms_over_sigma\": 3.266,\n \"residuals_by_heliocentric_distance_au\": [\n  {\n   \"from\": 0.9835,\n   \"mean_east_arcsec\": 21900.0,\n   \"mean_north_arcsec\": 107900.0,\n   \"rms_arcsec\": 82170.0,\n   \"to\": 0.9846\n  },\n  {\n   \"from\": 0.9846,\n   \"mean_east_arcsec\": 15360.0,\n   \"mean_north_arcsec\": 12860.0,\n   \"rms_arcsec\": 22900.0,\n   \"to\": 0.9891\n  },\n  {\n   \"from\": 0.9891,\n   \"mean_east_arcsec\": -16970.0,\n   \"mean_north_arcsec\": 38390.0,\n   \"rms_arcsec\": 35970.0,\n   \"to\": 0.9975\n  },\n  {\n   \"from\": 0.9975,\n   \"mean_east_arcsec\": -30400.0,\n   \"mean_north_arcsec\": 169700.0,\n   \"rms_arcsec\": 127200.0,\n   \"to\": 1.003\n  },\n  {\n   \"from\": 1.003,\n   \"mean_east_arcsec\": -79930.0,\n   \"mean_north_arcsec\": 490100.0,\n   \"rms_arcsec\": 1040000.0,\n   \"to\": 1.011\n  },\n  {\n   \"from\": 1.011,\n   \"mean_east_arcsec\": 154000.0,\n   \"mean_north_arcsec\": -1081000.0,\n   \"rms_arcsec\": 931800.0,\n   \"to\": 1.015\n  },\n  {\n   \"from\": 1.015,\n   \"mean_east_arcsec\": 71740.0,\n   \"mean_north_arcsec\": -484500.0,\n   \"rms_arcsec\": 347100.0,\n   \"to\": 1.016\n  },\n  {\n   \"from\": 1.016,\n   \"mean_east_arcsec\": 69510.0,\n   \"mean_north_arcsec\": -465000.0,\n   \"rms_arcsec\": 332600.0,\n   \"to\": 1.017\n  }\n ],\n \"residuals_by_time\": [\n  {\n   \"from\": 152.5,\n   \"mean_east_arcsec\": 68320.0,\n   \"mean_north_arcsec\": -460000.0,\n   \"rms_arcsec\": 328900.0,\n   \"to\": 172.4\n  },\n  {\n   \"from\": 172.4,\n   \"mean_east_arcsec\": 69410.0,\n   \"mean_north_arcsec\": -464000.0,\n   \"rms_arcsec\": 331800.0,\n   \"to\": 196.7\n  },\n  {\n   \"from\": 196.7,\n   \"mean_east_arcsec\": 80920.0,\n   \"mean_north_arcsec\": -552100.0,\n   \"rms_arcsec\": 396300.0,\n   \"to\": 217.1\n  },\n  {\n   \"from\": 217.1,\n   \"mean_east_arcsec\": 166400.0,\n   \"mean_north_arcsec\": -1332000.0,\n   \"rms_arcsec\": 1226000.0,\n   \"to\": 241.1\n  },\n  {\n   \"from\": 241.1,\n   \"mean_east_arcsec\": -111700.0,\n   \"mean_north_arcsec\": 838900.0,\n   \"rms_arcsec\": 935200.0,\n   \"to\": 264.1\n  },\n  {\n   \"from\": 264.1,\n   \"mean_east_arcsec\": -31740.0,\n   \"mean_north_arcsec\": 183600.0,\n   \"rms_arcsec\": 135700.0,\n   \"to\": 280.4\n  },\n  {\n   \"from\": 280.4,\n   \"mean_east_arcsec\": -20590.0,\n   \"mean_north_arcsec\": 68490.0,\n   \"rms_arcsec\": 55130.0,\n   \"to\": 308.8\n  },\n  {\n   \"from\": 308.8,\n   \"mean_east_arcsec\": -7483.0,\n   \"mean_north_arcsec\": 2728.0,\n   \"rms_arcsec\": 11740.0,\n   \"to\": 330.4\n  },\n  {\n   \"from\": 330.4,\n   \"mean_east_arcsec\": 25720.0,\n   \"mean_north_arcsec\": 33620.0,\n   \"rms_arcsec\": 32660.0,\n   \"to\": 349.1\n  },\n  {\n   \"from\": 349.1,\n   \"mean_east_arcsec\": 21660.0,\n   \"mean_north_arcsec\": 119500.0,\n   \"rms_arcsec\": 88590.0,\n   \"to\": 373.6\n  }\n ],\n \"span_days\": 221.1,\n \"two_half_ellipse_fits\": null\n}\n\nCandidates fitted so far (log-evidence, Laplace approximation):\n[\n {\n  \"family\": \"conic-elliptic\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": -1038.116\n }\n]\n\nRegistered families: {\"central-hooke\": \"f = -k r (integrated)\", \"central-newton-plus-inverse-cube\": \"f = -GM/r^2 (1 + eps/r) (integrated)\", \"central-power-law\": \"f = -C r^-n, free n and C (integrated)\", \"central-yukawa\": \"f = -GM/r^2 (1 + r/lam) exp(-r/lam) (integrated)\", \"circle\": \"circular Keplerian orbit (4 parameters)\", \"conic-elliptic\": \"Keplerian ellipse under Newtonian gravity (6 elements)\", \"conic-hyperbolic\": \"Keplerian hyperbola (unbound)\", \"epicycles\": \"Ptolemaic geocentric deferent + epicycle\", \"equant-circle\": \"Kepler's vicarious hypothesis: eccentric circle with an equant\", \"perturbed-conic\": \"Newton + one unseen planet on a circular ecliptic orbit (mass, radius, longitude; integrated)\"}\n\nPropose up to 3 new candidates (not already fitted), or stop."
+   }
+  ],
+  "output_config": {
+   "effort": "high",
+   "format": {
+    "type": "json_schema",
+    "schema": {
+     "type": "object",
+     "properties": {
+      "analysis": {
+       "type": "string"
+      },
+      "stop": {
+       "type": "boolean"
+      },
+      "proposals": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "properties": {
+         "kind": {
+          "type": "string",
+          "enum": [
+           "registered",
+           "central_radial"
+          ]
+         },
+         "family": {
+          "type": "string",
+          "description": "registered: exact name"
+         },
+         "slug": {
+          "type": "string",
+          "description": "central_radial: short id"
+         },
+         "radial": {
+          "type": "string",
+          "description": "central_radial: f(r)"
+         },
+         "params": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "lower": {
+             "type": "number"
+            },
+            "upper": {
+             "type": "number"
+            },
+            "initial": {
+             "type": "number"
+            },
+            "log_scale": {
+             "type": "boolean"
+            }
+           },
+           "required": [
+            "name",
+            "lower",
+            "upper",
+            "initial",
+            "log_scale"
+           ],
+           "additionalProperties": false
+          }
+         },
+         "rationale": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind",
+         "family",
+         "slug",
+         "radial",
+         "params",
+         "rationale"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "analysis",
+      "stop",
+      "proposals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "betas": [
+   "server-side-fallback-2026-07-01"
+  ],
+  "fallbacks": "default"
+ },
+ "response": {
+  "parsed": {
+   "analysis": "The Keplerian ellipse fit is very poor: the residual RMS is about 5.3e5 arcsec, which is 3.3 times the fitted sigma. That sigma (about 45 degrees) is itself absurdly large, so the fit has essentially failed. The fitted orbit has a \u2248 1.0006 AU and e \u2248 0.017, and the distance range is 0.98\u20131.02 AU. That is nearly identical to an Earth-like observer's orbit. The residuals blow up in a narrow window around t \u2248 217\u2013264 d, with sign flips in the north component. This pattern suggests the body is very close to the observer, either co-orbital or orbiting the observer itself, so the apparent direction swings rapidly. A heliocentric conic cannot follow that, or the fit is trapped in a bad local minimum. Three candidates follow from this. A geocentric (epicycle) description would capture a body bound to the observer. The perturbed-conic family with a massive perturber near 1 AU allows strong perturbation by the observer's own planet. The circle family gives a cheap alternative starting basin to check whether the ellipse fit is a local-minimum artifact. Changing the central force law is unlikely to fix residuals of this size and structure, so no new radial laws are proposed yet.",
+   "stop": false,
+   "proposals": [
+    {
+     "kind": "registered",
+     "family": "epicycles",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "The body's heliocentric distance tracks the observer's ~1 AU orbit, and the angular residuals swing wildly over a short interval. Both point to a body close to or bound to the observer, which a geocentric deferent+epicycle model can represent."
+    },
+    {
+     "kind": "registered",
+     "family": "perturbed-conic",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "Newton plus one unseen planet near 1 AU could model strong perturbations from the observer's planet on a co-orbital or nearby body. That would explain the localized residual blow-up near close approach."
+    },
+    {
+     "kind": "registered",
+     "family": "circle",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "With e \u2248 0.017 the circular model is nearly as expressive and has fewer parameters. It offers a different optimization basin to check whether the ellipse fit is a local-minimum failure."
+    }
+   ]
+  },
+  "model": "claude-opus-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+   "input_tokens": 3360,
+   "output_tokens": 1217
+  }
+ }
+}

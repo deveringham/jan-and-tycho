@@ -1,0 +1,186 @@
+{
+ "request": {
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "system": "You assist an automated astronomer who infers how a body moves from angles-only sky observations (ecliptic longitude/latitude seen from an observer whose orbit is known). Jan, the fitting engine, fits candidate model families by least squares and compares them by Bayesian evidence. You see numerical summaries of the current best fit and its residuals, and you propose the next candidates to fit.\n\nA candidate is either a registered family (by exact name) or a new central force law: the radial acceleration f(r) in AU/day^2 (negative = attractive) as an expression in r (heliocentric distance, AU), GM (the Sun's, 2.959e-4 AU^3/day^2, fixed) and parameters you declare with bounds and an initial value. Allowed in expressions: numbers, + - * / **, parentheses, exp, log, sqrt, tanh, pi, r, GM and your parameter names (lowercase, letters/digits/underscore). Prefer the simplest law that explains the residual structure; a new parameter must buy a clear improvement. Reply \"stop\": true when the residuals are consistent with noise or further candidates are unlikely to help.",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Data and current best fit:\n{\n \"best_family\": \"llm:newton-plus-hooke\",\n \"best_fit_parameters\": {\n  \"Omega\": 0.8664,\n  \"cos_i\": 0.9995,\n  \"e\": 0.8066,\n  \"k\": -5.26e-07,\n  \"lambda0\": 1.729,\n  \"log_a\": 2.081,\n  \"varpi\": 0.6469\n },\n \"heliocentric_distance_range_au\": [\n  1.953,\n  50.23\n ],\n \"n_observations\": 395,\n \"noise_sigma_arcsec\": 5502.0,\n \"noise_sigma_source\": \"fitted\",\n \"residual_periodogram_peaks\": [\n  {\n   \"period_days\": 3620.0,\n   \"power\": 0.27\n  },\n  {\n   \"period_days\": 3210.0,\n   \"power\": 0.25\n  },\n  {\n   \"period_days\": 4140.0,\n   \"power\": 0.24\n  }\n ],\n \"residual_rms_arcsec\": 5502.0,\n \"residual_rms_over_sigma\": 1.0,\n \"residuals_by_heliocentric_distance_au\": [\n  {\n   \"from\": 1.953,\n   \"mean_east_arcsec\": 1261.0,\n   \"mean_north_arcsec\": 39.24,\n   \"rms_arcsec\": 10220.0,\n   \"to\": 4.251\n  },\n  {\n   \"from\": 4.251,\n   \"mean_east_arcsec\": -500.7,\n   \"mean_north_arcsec\": 67.6,\n   \"rms_arcsec\": 6181.0,\n   \"to\": 6.388\n  },\n  {\n   \"from\": 6.388,\n   \"mean_east_arcsec\": -5686.0,\n   \"mean_north_arcsec\": 96.21,\n   \"rms_arcsec\": 4746.0,\n   \"to\": 7.821\n  },\n  {\n   \"from\": 7.821,\n   \"mean_east_arcsec\": -596.5,\n   \"mean_north_arcsec\": 35.26,\n   \"rms_arcsec\": 1842.0,\n   \"to\": 9.834\n  },\n  {\n   \"from\": 9.834,\n   \"mean_east_arcsec\": 5116.0,\n   \"mean_north_arcsec\": -99.21,\n   \"rms_arcsec\": 3780.0,\n   \"to\": 13.22\n  },\n  {\n   \"from\": 13.22,\n   \"mean_east_arcsec\": 5157.0,\n   \"mean_north_arcsec\": -120.5,\n   \"rms_arcsec\": 4259.0,\n   \"to\": 19.92\n  },\n  {\n   \"from\": 19.92,\n   \"mean_east_arcsec\": 679.5,\n   \"mean_north_arcsec\": 7.451,\n   \"rms_arcsec\": 3562.0,\n   \"to\": 32.01\n  },\n  {\n   \"from\": 32.01,\n   \"mean_east_arcsec\": -5509.0,\n   \"mean_north_arcsec\": 196.6,\n   \"rms_arcsec\": 5239.0,\n   \"to\": 50.23\n  }\n ],\n \"residuals_by_time\": [\n  {\n   \"from\": 19.52,\n   \"mean_east_arcsec\": 1732.0,\n   \"mean_north_arcsec\": 41.62,\n   \"rms_arcsec\": 11390.0,\n   \"to\": 614.8\n  },\n  {\n   \"from\": 614.8,\n   \"mean_east_arcsec\": 852.4,\n   \"mean_north_arcsec\": 27.3,\n   \"rms_arcsec\": 6106.0,\n   \"to\": 1163.0\n  },\n  {\n   \"from\": 1163.0,\n   \"mean_east_arcsec\": -4672.0,\n   \"mean_north_arcsec\": 86.52,\n   \"rms_arcsec\": 5006.0,\n   \"to\": 1682.0\n  },\n  {\n   \"from\": 1682.0,\n   \"mean_east_arcsec\": -4833.0,\n   \"mean_north_arcsec\": 132.8,\n   \"rms_arcsec\": 3963.0,\n   \"to\": 2166.0\n  },\n  {\n   \"from\": 2166.0,\n   \"mean_east_arcsec\": 72.91,\n   \"mean_north_arcsec\": 9.568,\n   \"rms_arcsec\": 1672.0,\n   \"to\": 2690.0\n  },\n  {\n   \"from\": 2690.0,\n   \"mean_east_arcsec\": 5337.0,\n   \"mean_north_arcsec\": -83.53,\n   \"rms_arcsec\": 3949.0,\n   \"to\": 3234.0\n  },\n  {\n   \"from\": 3234.0,\n   \"mean_east_arcsec\": 5320.0,\n   \"mean_north_arcsec\": -148.0,\n   \"rms_arcsec\": 4068.0,\n   \"to\": 3769.0\n  },\n  {\n   \"from\": 3769.0,\n   \"mean_east_arcsec\": 4198.0,\n   \"mean_north_arcsec\": -69.48,\n   \"rms_arcsec\": 3877.0,\n   \"to\": 4413.0\n  },\n  {\n   \"from\": 4413.0,\n   \"mean_east_arcsec\": -1739.0,\n   \"mean_north_arcsec\": 51.55,\n   \"rms_arcsec\": 3268.0,\n   \"to\": 4926.0\n  },\n  {\n   \"from\": 4926.0,\n   \"mean_east_arcsec\": -6369.0,\n   \"mean_north_arcsec\": 230.3,\n   \"rms_arcsec\": 5723.0,\n   \"to\": 5469.0\n  }\n ],\n \"span_days\": 5449.0,\n \"two_half_ellipse_fits\": {\n  \"delta_varpi_deg_per_orbit\": 95.53,\n  \"period_days_first_half\": 4125.0,\n  \"period_days_second_half\": 11990.0\n }\n}\n\nCandidates fitted so far (log-evidence, Laplace approximation):\n[\n {\n  \"family\": \"llm:newton-plus-hooke\",\n  \"law\": \"f(r) = -GM/r**2 - p_k*r with {'p_k': -5.26e-07}\",\n  \"ln_evidence\": 1614.607\n },\n {\n  \"family\": \"central-power-law\",\n  \"law\": \"f(r) = -C*r**(-n) with {'C': 0.0002369, 'n': 2.206}\",\n  \"ln_evidence\": -613.8674\n },\n {\n  \"family\": \"central-newton-plus-inverse-cube\",\n  \"law\": \"f(r) = -GM/r**2*(1 + eps/r) with {'eps': -0.009133}\",\n  \"ln_evidence\": -632.657\n },\n {\n  \"family\": \"conic-elliptic\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": -640.5563\n },\n {\n  \"family\": \"central-yukawa\",\n  \"law\": \"f(r) = -GM/r**2*(1 + r/lam)*exp(-r/lam) with {'lam': 0.113}\",\n  \"ln_evidence\": -723.5463\n },\n {\n  \"family\": \"perturbed-conic\",\n  \"law\": \"f(r) = -GM/r**2 with {'m_pert': 0.0001035, 'a_pert': 46.53}\",\n  \"ln_evidence\": -736.3863\n },\n {\n  \"family\": \"llm:newton-plus-constant\",\n  \"law\": \"f(r) = -GM/r**2 - p_g0 with {'p_g0': -1.259e-06}\",\n  \"ln_evidence\": -792.963\n }\n]\n\nRegistered families: {\"central-hooke\": \"f = -k r (integrated)\", \"central-newton-plus-inverse-cube\": \"f = -GM/r^2 (1 + eps/r) (integrated)\", \"central-power-law\": \"f = -C r^-n, free n and C (integrated)\", \"central-yukawa\": \"f = -GM/r^2 (1 + r/lam) exp(-r/lam) (integrated)\", \"circle\": \"circular Keplerian orbit (4 parameters)\", \"conic-elliptic\": \"Keplerian ellipse under Newtonian gravity (6 elements)\", \"conic-hyperbolic\": \"Keplerian hyperbola (unbound)\", \"epicycles\": \"Ptolemaic geocentric deferent + epicycle\", \"equant-circle\": \"Kepler's vicarious hypothesis: eccentric circle with an equant\", \"perturbed-conic\": \"Newton + one unseen planet on a circular ecliptic orbit (mass, radius, longitude; integrated)\"}\n\nPropose up to 3 new candidates (not already fitted), or stop."
+   }
+  ],
+  "output_config": {
+   "effort": "high",
+   "format": {
+    "type": "json_schema",
+    "schema": {
+     "type": "object",
+     "properties": {
+      "analysis": {
+       "type": "string"
+      },
+      "stop": {
+       "type": "boolean"
+      },
+      "proposals": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "properties": {
+         "kind": {
+          "type": "string",
+          "enum": [
+           "registered",
+           "central_radial"
+          ]
+         },
+         "family": {
+          "type": "string",
+          "description": "registered: exact name"
+         },
+         "slug": {
+          "type": "string",
+          "description": "central_radial: short id"
+         },
+         "radial": {
+          "type": "string",
+          "description": "central_radial: f(r)"
+         },
+         "params": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "lower": {
+             "type": "number"
+            },
+            "upper": {
+             "type": "number"
+            },
+            "initial": {
+             "type": "number"
+            },
+            "log_scale": {
+             "type": "boolean"
+            }
+           },
+           "required": [
+            "name",
+            "lower",
+            "upper",
+            "initial",
+            "log_scale"
+           ],
+           "additionalProperties": false
+          }
+         },
+         "rationale": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind",
+         "family",
+         "slug",
+         "radial",
+         "params",
+         "rationale"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "analysis",
+      "stop",
+      "proposals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "betas": [
+   "server-side-fallback-2026-07-01"
+  ],
+  "fallbacks": "default"
+ },
+ "response": {
+  "parsed": {
+   "analysis": "Newton+Hooke (repulsive linear term, k\u2248-5.3e-7) beats every other law by more than 2200 in ln-evidence, but the fit is still poor. The residual RMS is about 5500\u2033, and sigma was fitted, so rms/sigma = 1 says nothing about whether this is noise. The residuals are strongly systematic. The east residuals swing coherently by \u00b15000\u2033 against both time and distance, with a ~3600-day periodicity. The two half-ellipse fits give very different periods and about 95\u00b0/orbit of apsidal precession, so the extra force is large and depends on r. A linear (r\u00b9) term is probably the wrong radial shape. Next steps: free the exponent of the additive term, allow the inverse-square strength to vary alongside the Hooke term, and try a quadratic additive term.",
+   "stop": false,
+   "proposals": [
+    {
+     "kind": "central_radial",
+     "family": "",
+     "slug": "newton-plus-power",
+     "radial": "-GM/r**2 - k*(r/10)**q",
+     "params": [
+      {
+       "name": "k",
+       "lower": -0.001,
+       "upper": 0.001,
+       "initial": -5.26e-06,
+       "log_scale": false
+      },
+      {
+       "name": "q",
+       "lower": -1.5,
+       "upper": 4.0,
+       "initial": 1.0,
+       "log_scale": false
+      }
+     ],
+     "rationale": "Generalises the winning Newton+Hooke law by letting the exponent of the additive term float. This tests whether the residual swings with distance come from the wrong radial shape of the extra force."
+    },
+    {
+     "kind": "central_radial",
+     "family": "",
+     "slug": "scaled-newton-plus-hooke",
+     "radial": "-c*GM/r**2 - k*r",
+     "params": [
+      {
+       "name": "c",
+       "lower": 0.1,
+       "upper": 10.0,
+       "initial": 1.0,
+       "log_scale": true
+      },
+      {
+       "name": "k",
+       "lower": -0.0001,
+       "upper": 0.0001,
+       "initial": -5.26e-07,
+       "log_scale": false
+      }
+     ],
+     "rationale": "Lets the inverse-square strength float as well as the linear term. The power-law fit preferred C\u2260GM, and a mis-scaled central attraction would change the period and the precession together."
+    },
+    {
+     "kind": "central_radial",
+     "family": "",
+     "slug": "newton-plus-quadratic",
+     "radial": "-GM/r**2 - k*r**2",
+     "params": [
+      {
+       "name": "k",
+       "lower": -1e-05,
+       "upper": 1e-05,
+       "initial": -1e-08,
+       "log_scale": false
+      }
+     ],
+     "rationale": "A one-parameter alternative whose extra force grows faster with distance. It suits the residual pattern that worsens at the largest distances (32\u201350 AU)."
+    }
+   ]
+  },
+  "model": "claude-opus-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+   "input_tokens": 3907,
+   "output_tokens": 1520
+  }
+ }
+}

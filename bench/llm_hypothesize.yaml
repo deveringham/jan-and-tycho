@@ -1,0 +1,35 @@
+name: llm_hypothesize
+# Phase 5: Claude proposes model families from residual summaries; Jan fits them and
+# compares evidences (nested sampling for the leaders). Every LLM call is cached in
+# runs/llm_cache, so a re-run (or anyone with the cache) replays it without API calls;
+# a first run needs Anthropic API credentials and is billed (at most 3 calls per run).
+#
+# Scenarios span three questions: does it leave Newton alone when Newton is right
+# (mars_like, hyperbolic_comet)? does it find an alien law that bayes.nested's fixed
+# families miss (the five force-law scenarios)? and does it avoid claiming a law for
+# paths no central force produces (epicycle_truth, rectangle, figure_eight)?
+# classical.lsq (Newtonian ellipse/conic) is the cheap baseline on the same data.
+scenarios:
+  - scenarios/mars_like.yaml
+  - scenarios/hyperbolic_comet.yaml
+  - scenarios/precessing_power_law.yaml
+  - scenarios/gr_like_precession.yaml
+  - scenarios/hooke_trap.yaml
+  - scenarios/yukawa.yaml
+  - scenarios/hidden_perturber.yaml
+  - scenarios/epicycle_truth.yaml
+  - scenarios/rectangle.yaml
+  - scenarios/figure_eight.yaml
+strategies: [llm.hypothesize, classical.lsq]
+strategy_overrides:
+  classical.lsq:
+    family: [conic]
+seeds: {start: 0, count: 2}
+timeout_minutes: 60
+viz:
+  per_run: first_seed
+  animations: none
+  comparison:
+    - {figure: rejection_matrix}
+    - {figure: structural_success}
+    - {figure: leaderboard}

@@ -1,0 +1,18 @@
+name: sedna_like
+# Phase 3 acceptance: the posterior shows the period–eccentricity degeneracy of a short arc
+# (corner plots) and credible intervals still cover the truth.
+scenarios: [scenarios/sedna_like.yaml]
+# In the family's φ = (log a, e, ϖ, cos i, Ω, λ0) the posterior is a long curved banana:
+# the Laplace approximation (lsq), NUTS and emcee in φ undercover. emcee in state
+# coordinates (x, v at the mid-arc epoch) sees a nearly straight ridge and mixes.
+strategies: [bayes.hmc, bayes.mcmc, classical.lsq]
+strategy_overrides:
+  bayes.mcmc:
+    coords: [phi, state]
+seeds: {start: 0, count: 20}
+timeout_minutes: 30
+viz:
+  per_run: first_seed
+  comparison:
+    - {figure: calibration}
+    - {figure: leaderboard}

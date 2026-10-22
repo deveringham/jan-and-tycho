@@ -1,0 +1,29 @@
+name: rectangle
+description: >-
+  A body moving at constant speed around a 3 × 2 AU rectangle (period 1500 d) — periodic but
+  not physical. Kepler's triangulation should recover the corners; force laws should be rejected.
+duration_days: 6000
+holdout_fraction: 0.25
+knowledge_tier: T1
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+bodies:
+  - id: target
+    truth:
+      type: kinematic_polygon
+      vertices_au: [[-1.5, -1.0], [1.5, -1.0], [1.5, 1.0], [-1.5, 1.0]]
+      center_au: [0.3, 0.2]
+      i_deg: 3.0
+      Omega_deg: 40.0
+      period_days: 1500
+      speed_profile: constant_speed
+schedule:
+  type: regular
+  cadence_days: 10
+  jitter_days: 2
+  visibility:
+    min_solar_elongation_deg: 15
+    dropout_prob: 0.2
+noise:
+  - {type: gaussian, sigma_arcsec: 60}

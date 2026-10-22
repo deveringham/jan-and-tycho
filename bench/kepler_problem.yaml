@@ -1,0 +1,13 @@
+name: kepler_problem
+# Phase 3 acceptance: with the Earth's orbit unknown (T2: Sun stream only), recover Earth's
+# e within 0.005 and Mars's a within 1%.
+scenarios: [scenarios/mars_unknown_earth.yaml]
+strategies: [kepler.triangulate, classical.lsq, bayes.mcmc, ptolemy.fourier]
+seeds: {start: 0, count: 5}
+timeout_minutes: 30
+viz:
+  per_run: first_seed
+  animations: first_seed
+  comparison:
+    - {figure: leaderboard}
+    - {figure: strategy_race, seed: 0}

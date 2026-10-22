@@ -1,0 +1,22 @@
+name: eight_arcminutes
+# When can the data tell Kepler's ellipse from an equant circle? Noise is swept well past
+# the spec's 20′ because, with ~360 observations over 15 years and a known Earth, the
+# ellipse stays decisive up to ~1°; the cadence axis shows how the transition moves with
+# the number of observations (90-day cadence ≈ Kepler-era sampling).
+scenarios: [scenarios/eight_arcminutes.yaml]
+overrides:
+  noise.0.sigma_arcsec: [10, 60, 240, 480, 1200, 2400, 3600]
+  schedule.cadence_days: [10, 30, 90]
+strategies: [bayes.nested, classical.lsq, ptolemy.fourier]
+seeds: {start: 0, count: 5}
+timeout_minutes: 20
+viz:
+  per_run: none
+  animations: none
+  comparison:
+    - {figure: model_selection_vs_noise, x: noise.0.sigma_arcsec, by: schedule.cadence_days}
+    - {figure: error_vs_tycho_param, x: noise.0.sigma_arcsec, by: schedule.cadence_days, metric: holdout_rms_arcsec}
+    - {figure: heatmap_2d, x: noise.0.sigma_arcsec, y: schedule.cadence_days, metric: holdout_rms_arcsec}
+    - {figure: sweep_animation, base_figure: orbit_topdown, x: noise.0.sigma_arcsec, seed: 0}
+    - {figure: accuracy_vs_runtime}
+    - {figure: strategy_race, seed: 0}

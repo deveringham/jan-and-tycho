@@ -1,0 +1,30 @@
+name: hidden_perturber
+description: >-
+  Uranus-like target perturbed by an unseen, Saturn-mass body at Neptune's distance (Le Verrier's problem), observed
+  for 70 years; the two pass conjunction mid-span. Where is the hidden planet?
+duration_days: 25567
+holdout_fraction: 0.2
+knowledge_tier: T1
+dense_points: 3001
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+definitions:
+  system: &system
+    - {id: target, mass_msun: 4.37e-5, elements: {q: 18.29, e: 0.047, i_deg: 0.77, Omega_deg: 74.0, omega_deg: 96.9, t_p: 27351.0}}
+    - {id: neptune, mass_msun: 2.6e-4, elements: {q: 29.81, e: 0.0086, i_deg: 1.77, Omega_deg: 131.8, omega_deg: 273.2, t_p: 20308.0}}
+bodies:
+  - id: target
+    truth: {type: nbody, member: target, system: *system}
+  - id: neptune
+    hidden: true
+    truth: {type: nbody, member: neptune, system: *system}
+schedule:
+  type: regular
+  cadence_days: 30
+  jitter_days: 5
+  visibility:
+    min_solar_elongation_deg: 30
+    dropout_prob: 0.2
+noise:
+  - {type: gaussian, sigma_arcsec: 5}

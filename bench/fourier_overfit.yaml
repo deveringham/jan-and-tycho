@@ -1,0 +1,12 @@
+name: fourier_overfit
+# Training-fit vs holdout error as the epicycle order grows (overfitting).
+scenarios: [scenarios/mars_like.yaml]
+strategies: [ptolemy.fourier]
+strategy_overrides:
+  ptolemy.fourier:
+    n_harmonics: [1, 2, 3, 4, 6, 8, 12, 16, 24]
+seeds: {start: 0, count: 5}
+viz:
+  per_run: none
+  comparison:
+    - {figure: error_vs_jan_param, strategy: ptolemy.fourier, x: n_harmonics, metric: holdout_rms_arcsec}

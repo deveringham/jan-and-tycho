@@ -1,0 +1,148 @@
+{
+ "request": {
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "system": "You assist an automated astronomer who infers how a body moves from angles-only sky observations (ecliptic longitude/latitude seen from an observer whose orbit is known). Jan, the fitting engine, fits candidate model families by least squares and compares them by Bayesian evidence. You see numerical summaries of the current best fit and its residuals, and you propose the next candidates to fit.\n\nA candidate is either a registered family (by exact name) or a new central force law: the radial acceleration f(r) in AU/day^2 (negative = attractive) as an expression in r (heliocentric distance, AU), GM (the Sun's, 2.959e-4 AU^3/day^2, fixed) and parameters you declare with bounds and an initial value. Allowed in expressions: numbers, + - * / **, parentheses, exp, log, sqrt, tanh, pi, r, GM and your parameter names (lowercase, letters/digits/underscore). Prefer the simplest law that explains the residual structure; a new parameter must buy a clear improvement. Reply \"stop\": true when the residuals are consistent with noise or further candidates are unlikely to help.",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Data and current best fit:\n{\n \"best_family\": \"epicycles\",\n \"best_fit_parameters\": {\n  \"Omega\": 2.388,\n  \"apse\": 2.612,\n  \"cos_i\": 0.08741,\n  \"e_c\": 0.03671,\n  \"e_q\": 0.1244,\n  \"f_def\": 0.01221,\n  \"f_epi\": -0.0166,\n  \"phase_def\": 1.671,\n  \"phase_epi\": 3.377,\n  \"ratio\": 0.9838\n },\n \"heliocentric_distance_range_au\": [\n  0.1088,\n  2.013\n ],\n \"n_observations\": 83,\n \"noise_sigma_arcsec\": 36130.0,\n \"noise_sigma_source\": \"fitted\",\n \"residual_periodogram_peaks\": [\n  {\n   \"period_days\": 221.0,\n   \"power\": 0.62\n  },\n  {\n   \"period_days\": 198.0,\n   \"power\": 0.47\n  },\n  {\n   \"period_days\": 176.0,\n   \"power\": 0.26\n  }\n ],\n \"residual_rms_arcsec\": 36130.0,\n \"residual_rms_over_sigma\": 1.0,\n \"residuals_by_heliocentric_distance_au\": [\n  {\n   \"from\": 0.1088,\n   \"mean_east_arcsec\": 4869.0,\n   \"mean_north_arcsec\": -1946.0,\n   \"rms_arcsec\": 32660.0,\n   \"to\": 0.4478\n  },\n  {\n   \"from\": 0.4478,\n   \"mean_east_arcsec\": 14050.0,\n   \"mean_north_arcsec\": 17320.0,\n   \"rms_arcsec\": 33410.0,\n   \"to\": 0.9822\n  },\n  {\n   \"from\": 0.9822,\n   \"mean_east_arcsec\": 5276.0,\n   \"mean_north_arcsec\": -1249.0,\n   \"rms_arcsec\": 39120.0,\n   \"to\": 1.281\n  },\n  {\n   \"from\": 1.281,\n   \"mean_east_arcsec\": 11200.0,\n   \"mean_north_arcsec\": 11380.0,\n   \"rms_arcsec\": 36280.0,\n   \"to\": 1.504\n  },\n  {\n   \"from\": 1.504,\n   \"mean_east_arcsec\": 17790.0,\n   \"mean_north_arcsec\": -1387.0,\n   \"rms_arcsec\": 37150.0,\n   \"to\": 1.689\n  },\n  {\n   \"from\": 1.689,\n   \"mean_east_arcsec\": 7041.0,\n   \"mean_north_arcsec\": -5382.0,\n   \"rms_arcsec\": 34590.0,\n   \"to\": 1.865\n  },\n  {\n   \"from\": 1.865,\n   \"mean_east_arcsec\": 15810.0,\n   \"mean_north_arcsec\": 5660.0,\n   \"rms_arcsec\": 38560.0,\n   \"to\": 1.932\n  },\n  {\n   \"from\": 1.932,\n   \"mean_east_arcsec\": 13660.0,\n   \"mean_north_arcsec\": 5936.0,\n   \"rms_arcsec\": 35920.0,\n   \"to\": 2.013\n  }\n ],\n \"residuals_by_time\": [\n  {\n   \"from\": 152.5,\n   \"mean_east_arcsec\": -16240.0,\n   \"mean_north_arcsec\": -51460.0,\n   \"rms_arcsec\": 41560.0,\n   \"to\": 172.4\n  },\n  {\n   \"from\": 172.4,\n   \"mean_east_arcsec\": -31700.0,\n   \"mean_north_arcsec\": -7201.0,\n   \"rms_arcsec\": 26110.0,\n   \"to\": 196.7\n  },\n  {\n   \"from\": 196.7,\n   \"mean_east_arcsec\": -37050.0,\n   \"mean_north_arcsec\": 30240.0,\n   \"rms_arcsec\": 34330.0,\n   \"to\": 217.1\n  },\n  {\n   \"from\": 217.1,\n   \"mean_east_arcsec\": -21300.0,\n   \"mean_north_arcsec\": 57150.0,\n   \"rms_arcsec\": 47130.0,\n   \"to\": 241.1\n  },\n  {\n   \"from\": 241.1,\n   \"mean_east_arcsec\": 16030.0,\n   \"mean_north_arcsec\": 37210.0,\n   \"rms_arcsec\": 31700.0,\n   \"to\": 264.1\n  },\n  {\n   \"from\": 264.1,\n   \"mean_east_arcsec\": 37920.0,\n   \"mean_north_arcsec\": -4867.0,\n   \"rms_arcsec\": 28570.0,\n   \"to\": 280.4\n  },\n  {\n   \"from\": 280.4,\n   \"mean_east_arcsec\": 47180.0,\n   \"mean_north_arcsec\": -27530.0,\n   \"rms_arcsec\": 38710.0,\n   \"to\": 308.8\n  },\n  {\n   \"from\": 308.8,\n   \"mean_east_arcsec\": 29190.0,\n   \"mean_north_arcsec\": -16800.0,\n   \"rms_arcsec\": 26520.0,\n   \"to\": 330.4\n  },\n  {\n   \"from\": 330.4,\n   \"mean_east_arcsec\": 24120.0,\n   \"mean_north_arcsec\": -3010.0,\n   \"rms_arcsec\": 18740.0,\n   \"to\": 349.1\n  },\n  {\n   \"from\": 349.1,\n   \"mean_east_arcsec\": 64360.0,\n   \"mean_north_arcsec\": 28870.0,\n   \"rms_arcsec\": 51470.0,\n   \"to\": 373.6\n  }\n ],\n \"span_days\": 221.1,\n \"two_half_ellipse_fits\": null\n}\n\nCandidates fitted so far (log-evidence, Laplace approximation):\n[\n {\n  \"family\": \"epicycles\",\n  \"law\": null,\n  \"ln_evidence\": 12.16174\n },\n {\n  \"family\": \"circle\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": -275.3084\n },\n {\n  \"family\": \"conic-elliptic\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": -1038.116\n },\n {\n  \"family\": \"perturbed-conic\",\n  \"law\": \"f(r) = -GM/r**2 with {'m_pert': 3.897e-05, 'a_pert': 1.383}\",\n  \"ln_evidence\": -1110.701\n }\n]\n\nRegistered families: {\"central-hooke\": \"f = -k r (integrated)\", \"central-newton-plus-inverse-cube\": \"f = -GM/r^2 (1 + eps/r) (integrated)\", \"central-power-law\": \"f = -C r^-n, free n and C (integrated)\", \"central-yukawa\": \"f = -GM/r^2 (1 + r/lam) exp(-r/lam) (integrated)\", \"circle\": \"circular Keplerian orbit (4 parameters)\", \"conic-elliptic\": \"Keplerian ellipse under Newtonian gravity (6 elements)\", \"conic-hyperbolic\": \"Keplerian hyperbola (unbound)\", \"epicycles\": \"Ptolemaic geocentric deferent + epicycle\", \"equant-circle\": \"Kepler's vicarious hypothesis: eccentric circle with an equant\", \"perturbed-conic\": \"Newton + one unseen planet on a circular ecliptic orbit (mass, radius, longitude; integrated)\"}\n\nPropose up to 3 new candidates (not already fitted), or stop."
+   }
+  ],
+  "output_config": {
+   "effort": "high",
+   "format": {
+    "type": "json_schema",
+    "schema": {
+     "type": "object",
+     "properties": {
+      "analysis": {
+       "type": "string"
+      },
+      "stop": {
+       "type": "boolean"
+      },
+      "proposals": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "properties": {
+         "kind": {
+          "type": "string",
+          "enum": [
+           "registered",
+           "central_radial"
+          ]
+         },
+         "family": {
+          "type": "string",
+          "description": "registered: exact name"
+         },
+         "slug": {
+          "type": "string",
+          "description": "central_radial: short id"
+         },
+         "radial": {
+          "type": "string",
+          "description": "central_radial: f(r)"
+         },
+         "params": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "lower": {
+             "type": "number"
+            },
+            "upper": {
+             "type": "number"
+            },
+            "initial": {
+             "type": "number"
+            },
+            "log_scale": {
+             "type": "boolean"
+            }
+           },
+           "required": [
+            "name",
+            "lower",
+            "upper",
+            "initial",
+            "log_scale"
+           ],
+           "additionalProperties": false
+          }
+         },
+         "rationale": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind",
+         "family",
+         "slug",
+         "radial",
+         "params",
+         "rationale"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "analysis",
+      "stop",
+      "proposals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "betas": [
+   "server-side-fallback-2026-07-01"
+  ],
+  "fallbacks": "default"
+ },
+ "response": {
+  "parsed": {
+   "analysis": "The epicycle model wins only because its noise level was fitted at about 10 degrees (36,130 arcsec). That is not consistent with noise. The residuals by time show a large coherent swing: mean east goes from about -37,000 to +64,000 arcsec, and mean north from about -51,000 to +57,000 arcsec. The dominant residual period, 221 days, equals the full span of the data. So there is strong unmodelled structure, essentially a wrong overall trajectory shape.\n\nThe Newtonian fits do far worse than the circle:\n- Keplerian ellipse: ln evidence -1038, against -275 for the circle.\n- Perturbed conic: -1111.\n\nAn ellipse should never lose to a circle under the same law. This suggests the motion is not Keplerian under -GM/r^2. The inferred heliocentric distance swing (0.11 to 2.0 AU within about 220 days) comes from the epicycle fit and may be unreliable.\n\nThe natural next step is to test modified central force laws that keep a Sun-centred dynamical picture:\n- a free power law, the most general one-extra-parameter departure in steepness and strength;\n- Newton plus an inverse-cube correction, which matters most at the small perihelion distances implied;\n- a Yukawa-screened law, a length-scale modification.\n\nIf all three fail, a hyperbolic/unbound trajectory or a reconsideration of the data or observer geometry would be next.",
+   "stop": false,
+   "proposals": [
+    {
+     "kind": "registered",
+     "family": "central-power-law",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "Free exponent n and strength C test whether the force falls off differently from 1/r^2. This would explain why Kepler ellipses fail badly while a flexible geometric model does better."
+    },
+    {
+     "kind": "registered",
+     "family": "central-newton-plus-inverse-cube",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "An additional 1/r^3 term would dominate near a small perihelion (about 0.1 AU) and produce apsidal precession. That could distort the trajectory relative to a fixed ellipse over the span."
+    },
+    {
+     "kind": "registered",
+     "family": "central-yukawa",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "A screened force with a characteristic length lam alters the effective strength across the 0.1 to 2 AU range. It is a one-parameter alternative to the power law with different radial behaviour."
+    }
+   ]
+  },
+  "model": "claude-opus-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+   "input_tokens": 3575,
+   "output_tokens": 1192
+  }
+ }
+}

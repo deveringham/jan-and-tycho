@@ -1,0 +1,97 @@
+[project]
+name = "jan-and-tycho"
+version = "0.1.0"
+description = "Automated model and law discovery from simulated astronomical observations."
+readme = "README.md"
+requires-python = ">=3.11"
+# The dev environment installs the optional extras; the core loop needs none of them.
+dependencies = [
+    "jt-core",
+    "tycho",
+    "jan[bayes,gp,piml,discovery,sbi,llm]",
+    "rudolf[plots,explorer]",
+    "jt-bench",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+jt-core = { workspace = true }
+tycho = { workspace = true }
+jan = { workspace = true }
+rudolf = { workspace = true }
+jt-bench = { workspace = true }
+# CPU wheels: the CUDA build is several GB and nothing here trains on a GPU.
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "hypothesis>=6.100",
+    "ruff>=0.6",
+    "pyright>=1.1.380",
+    "import-linter>=2.1",
+    "nbformat>=5.10",
+    "nbclient>=0.10",
+    "ipykernel>=6.29",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["runs", "notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY", "RUF"]
+ignore = [
+    "E741",   # ambiguous variable names (e, l, I) are idiomatic in orbital mechanics
+    "RUF001", # unicode in strings (λ, β, ″) is intentional
+    "RUF002",
+    "RUF003",
+    "B008",   # typer uses function calls in argument defaults
+]
+
+[tool.ruff.lint.per-file-ignores]
+"packages/rudolf/src/rudolf/report.py" = ["E501"]  # embedded HTML/CSS templates
+"packages/rudolf/src/rudolf/viz/*.py" = ["E501"]  # figure captions are prose
+
+[tool.ruff.lint.isort]
+known-first-party = ["jt_core", "tycho", "jan", "rudolf", "jt_bench"]
+
+[tool.pyright]
+# jt_core modules opt into strict mode with a `# pyright: strict` header (SPEC §2); the
+# reportUnknown* family is relaxed there because numpy/JAX/pandas stubs are only partial.
+include = ["packages", "tests"]
+exclude = ["**/__pycache__", "runs", "notebooks"]
+typeCheckingMode = "basic"
+pythonVersion = "3.11"
+venvPath = "."
+venv = ".venv"
+extraPaths = [
+    "packages/jt-core/src",
+    "packages/tycho/src",
+    "packages/jan/src",
+    "packages/rudolf/src",
+    "packages/jt-bench/src",
+]
+reportMissingTypeStubs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "packages"]
+addopts = "-ra -m 'not slow and not bayes and not discovery and not sbi'"
+markers = [
+    "slow: long-running tests (run with -m slow)",
+    "bayes: needs the jan[bayes] extra",
+    "discovery: needs the jan[discovery] extra",
+    "sbi: needs the jan[sbi] extra (PyTorch)",
+]
+filterwarnings = ["ignore::DeprecationWarning:jupyter_client"]

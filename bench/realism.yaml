@@ -1,0 +1,19 @@
+name: realism
+# Phase 5: light-time and aberration in modern (1″) astrometry. Every strategy reduces the
+# data the same way (jan.realism); `realism: ignore` measures the bias left by not doing so.
+scenarios: [scenarios/realism_mars.yaml]
+overrides:
+  realism.light_time: [false, true]
+  realism.aberration: [false, true]
+strategies: [classical.lsq, bayes.mcmc, ptolemy.fourier]
+strategy_overrides:
+  classical.lsq: {realism: [model, ignore]}
+  bayes.mcmc: {realism: [model, ignore]}
+seeds: {start: 0, count: 3}
+timeout_minutes: 30
+viz:
+  per_run: first_seed
+  animations: none
+  comparison:
+    - {figure: realism_bias}
+    - {figure: leaderboard}

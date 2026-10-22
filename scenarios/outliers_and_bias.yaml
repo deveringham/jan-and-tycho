@@ -1,0 +1,31 @@
+name: outliers_and_bias
+description: >-
+  Mars-like, Tycho-level noise with 5% gross outliers (σ = 2°) and a small constant bias.
+  Robust (Student-t / Cauchy) likelihoods should shrug off the outliers.
+duration_days: 7300
+holdout_fraction: 0.25
+knowledge_tier: T1
+
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+
+bodies:
+  - id: target
+    truth:
+      type: keplerian
+      elements: {q: 1.381, e: 0.0934, i_deg: 1.85, Omega_deg: 49.6, omega_deg: 286.5, t_p: 120.0}
+    photometry: {H: -1.5}
+
+schedule:
+  type: regular
+  cadence_days: 10
+  jitter_days: 2
+  visibility:
+    min_solar_elongation_deg: 15
+    dropout_prob: 0.2
+
+noise:
+  - {type: gaussian, sigma_arcsec: 60}
+  - {type: outliers, fraction: 0.05, scale_arcsec: 7200}
+  - {type: bias, lon_arcsec: 10, lat_arcsec: 0}

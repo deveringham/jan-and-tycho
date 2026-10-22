@@ -1,0 +1,17 @@
+name: sbi_npe
+# Phase 5: neural posterior estimation trained on Jan's own conic family. One round is the
+# amortized posterior (trained on the whole prior); more rounds truncate the prior to the
+# previous posterior (per-scenario). emcee is the reference posterior.
+scenarios: [scenarios/mars_like.yaml]
+strategies: [sbi.npe, bayes.mcmc]
+strategy_overrides:
+  sbi.npe: {rounds: [1, 8]}
+seeds: {start: 0, count: 10}
+timeout_minutes: 30
+viz:
+  per_run: first_seed
+  animations: none
+  comparison:
+    - {figure: calibration}
+    - {figure: leaderboard}
+    - {figure: accuracy_vs_runtime}

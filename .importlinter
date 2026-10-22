@@ -1,0 +1,49 @@
+[importlinter]
+root_packages =
+    jt_core
+    tycho
+    jan
+    rudolf
+    jt_bench
+include_external_packages = False
+
+[importlinter:contract:core-is-leaf]
+name = jt_core imports nothing from the other packages
+type = forbidden
+source_modules =
+    jt_core
+forbidden_modules =
+    tycho
+    jan
+    rudolf
+    jt_bench
+
+[importlinter:contract:tycho-core-only]
+name = tycho may import jt_core only
+type = forbidden
+source_modules =
+    tycho
+forbidden_modules =
+    jan
+    rudolf
+    jt_bench
+
+[importlinter:contract:jan-blindfold]
+name = jan may import jt_core only (never tycho or rudolf)
+type = forbidden
+source_modules =
+    jan
+forbidden_modules =
+    tycho
+    rudolf
+    jt_bench
+
+[importlinter:contract:rudolf-core-only]
+name = rudolf may import jt_core only
+type = forbidden
+source_modules =
+    rudolf
+forbidden_modules =
+    tycho
+    jan
+    jt_bench

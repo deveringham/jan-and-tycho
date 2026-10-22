@@ -1,0 +1,35 @@
+name: epicycle_truth
+description: >-
+  Ptolemaic truth: a geocentric eccentric deferent with an equant plus one epicycle whose
+  period (300 d) is not the Earth's year, so no heliocentric conic can mimic it. Can Jan
+  prefer epicycles over conics?
+duration_days: 5000
+holdout_fraction: 0.25
+knowledge_tier: T1
+
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+
+bodies:
+  - id: target
+    truth:
+      type: epicycle
+      center: observer
+      i_deg: 2.0
+      Omega_deg: 40.0
+      circles:
+        - {radius_au: 1.5, period_days: 700.0, phase_deg: 30.0}
+        - {radius_au: 0.6, period_days: 300.0, phase_deg: 100.0}
+      eccentric: {center_offset_au: 0.1, equant_offset_au: 0.2, angle_deg: 70.0}
+
+schedule:
+  type: regular
+  cadence_days: 10
+  jitter_days: 2
+  visibility:
+    min_solar_elongation_deg: 15
+    dropout_prob: 0.2
+
+noise:
+  - {type: gaussian, sigma_arcsec: 60}

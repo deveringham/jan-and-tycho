@@ -1,0 +1,148 @@
+{
+ "request": {
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "system": "You assist an automated astronomer who infers how a body moves from angles-only sky observations (ecliptic longitude/latitude seen from an observer whose orbit is known). Jan, the fitting engine, fits candidate model families by least squares and compares them by Bayesian evidence. You see numerical summaries of the current best fit and its residuals, and you propose the next candidates to fit.\n\nA candidate is either a registered family (by exact name) or a new central force law: the radial acceleration f(r) in AU/day^2 (negative = attractive) as an expression in r (heliocentric distance, AU), GM (the Sun's, 2.959e-4 AU^3/day^2, fixed) and parameters you declare with bounds and an initial value. Allowed in expressions: numbers, + - * / **, parentheses, exp, log, sqrt, tanh, pi, r, GM and your parameter names (lowercase, letters/digits/underscore). Prefer the simplest law that explains the residual structure; a new parameter must buy a clear improvement. Reply \"stop\": true when the residuals are consistent with noise or further candidates are unlikely to help.",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Data and current best fit:\n{\n \"best_family\": \"conic-elliptic\",\n \"best_fit_parameters\": {\n  \"Omega\": 0.8658,\n  \"cos_i\": 0.9995,\n  \"e\": 0.09332,\n  \"lambda0\": 4.635,\n  \"log_a\": 0.4206,\n  \"varpi\": 5.871\n },\n \"heliocentric_distance_range_au\": [\n  1.381,\n  1.665\n ],\n \"n_observations\": 377,\n \"noise_sigma_arcsec\": 29.66,\n \"noise_sigma_source\": \"fitted\",\n \"residual_periodogram_peaks\": [\n  {\n   \"period_days\": 744.0,\n   \"power\": 0.54\n  },\n  {\n   \"period_days\": 628.0,\n   \"power\": 0.39\n  },\n  {\n   \"period_days\": 2940.0,\n   \"power\": 0.14\n  }\n ],\n \"residual_rms_arcsec\": 29.66,\n \"residual_rms_over_sigma\": 1.0,\n \"residuals_by_heliocentric_distance_au\": [\n  {\n   \"from\": 1.381,\n   \"mean_east_arcsec\": -15.19,\n   \"mean_north_arcsec\": 1.642,\n   \"rms_arcsec\": 44.04,\n   \"to\": 1.393\n  },\n  {\n   \"from\": 1.393,\n   \"mean_east_arcsec\": -11.64,\n   \"mean_north_arcsec\": 0.001465,\n   \"rms_arcsec\": 34.42,\n   \"to\": 1.428\n  },\n  {\n   \"from\": 1.428,\n   \"mean_east_arcsec\": -11.92,\n   \"mean_north_arcsec\": 1.011,\n   \"rms_arcsec\": 27.76,\n   \"to\": 1.479\n  },\n  {\n   \"from\": 1.479,\n   \"mean_east_arcsec\": -10.51,\n   \"mean_north_arcsec\": -0.9348,\n   \"rms_arcsec\": 19.72,\n   \"to\": 1.542\n  },\n  {\n   \"from\": 1.542,\n   \"mean_east_arcsec\": -9.238,\n   \"mean_north_arcsec\": -1.616,\n   \"rms_arcsec\": 20.44,\n   \"to\": 1.591\n  },\n  {\n   \"from\": 1.591,\n   \"mean_east_arcsec\": -1.622,\n   \"mean_north_arcsec\": 0.06224,\n   \"rms_arcsec\": 24.68,\n   \"to\": 1.63\n  },\n  {\n   \"from\": 1.63,\n   \"mean_east_arcsec\": -5.897,\n   \"mean_north_arcsec\": -0.9619,\n   \"rms_arcsec\": 27.12,\n   \"to\": 1.656\n  },\n  {\n   \"from\": 1.656,\n   \"mean_east_arcsec\": -1.48,\n   \"mean_north_arcsec\": 2.174,\n   \"rms_arcsec\": 30.06,\n   \"to\": 1.665\n  }\n ],\n \"residuals_by_time\": [\n  {\n   \"from\": 19.52,\n   \"mean_east_arcsec\": -12.01,\n   \"mean_north_arcsec\": 2.06,\n   \"rms_arcsec\": 44.11,\n   \"to\": 556.3\n  },\n  {\n   \"from\": 556.3,\n   \"mean_east_arcsec\": -2.404,\n   \"mean_north_arcsec\": -0.3603,\n   \"rms_arcsec\": 28.92,\n   \"to\": 1122.0\n  },\n  {\n   \"from\": 1122.0,\n   \"mean_east_arcsec\": -4.141,\n   \"mean_north_arcsec\": -0.48,\n   \"rms_arcsec\": 26.38,\n   \"to\": 1730.0\n  },\n  {\n   \"from\": 1730.0,\n   \"mean_east_arcsec\": -0.9157,\n   \"mean_north_arcsec\": 0.2864,\n   \"rms_arcsec\": 15.73,\n   \"to\": 2144.0\n  },\n  {\n   \"from\": 2144.0,\n   \"mean_east_arcsec\": -18.71,\n   \"mean_north_arcsec\": 0.5355,\n   \"rms_arcsec\": 22.19,\n   \"to\": 2731.0\n  },\n  {\n   \"from\": 2731.0,\n   \"mean_east_arcsec\": -25.26,\n   \"mean_north_arcsec\": -0.8075,\n   \"rms_arcsec\": 22.06,\n   \"to\": 3286.0\n  },\n  {\n   \"from\": 3286.0,\n   \"mean_east_arcsec\": -9.968,\n   \"mean_north_arcsec\": -0.0184,\n   \"rms_arcsec\": 14.72,\n   \"to\": 3763.0\n  },\n  {\n   \"from\": 3763.0,\n   \"mean_east_arcsec\": 27.24,\n   \"mean_north_arcsec\": 1.125,\n   \"rms_arcsec\": 36.12,\n   \"to\": 4328.0\n  },\n  {\n   \"from\": 4328.0,\n   \"mean_east_arcsec\": -1.696,\n   \"mean_north_arcsec\": 0.437,\n   \"rms_arcsec\": 30.56,\n   \"to\": 4923.0\n  },\n  {\n   \"from\": 4923.0,\n   \"mean_east_arcsec\": -38.49,\n   \"mean_north_arcsec\": -0.8127,\n   \"rms_arcsec\": 40.83,\n   \"to\": 5379.0\n  }\n ],\n \"span_days\": 5359.0,\n \"two_half_ellipse_fits\": {\n  \"delta_varpi_deg_per_orbit\": 0.04108,\n  \"period_days_first_half\": 686.4,\n  \"period_days_second_half\": 686.4\n }\n}\n\nCandidates fitted so far (log-evidence, Laplace approximation):\n[\n {\n  \"family\": \"conic-elliptic\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": 5519.829\n }\n]\n\nRegistered families: {\"central-hooke\": \"f = -k r (integrated)\", \"central-newton-plus-inverse-cube\": \"f = -GM/r^2 (1 + eps/r) (integrated)\", \"central-power-law\": \"f = -C r^-n, free n and C (integrated)\", \"central-yukawa\": \"f = -GM/r^2 (1 + r/lam) exp(-r/lam) (integrated)\", \"circle\": \"circular Keplerian orbit (4 parameters)\", \"conic-elliptic\": \"Keplerian ellipse under Newtonian gravity (6 elements)\", \"conic-hyperbolic\": \"Keplerian hyperbola (unbound)\", \"epicycles\": \"Ptolemaic geocentric deferent + epicycle\", \"equant-circle\": \"Kepler's vicarious hypothesis: eccentric circle with an equant\", \"perturbed-conic\": \"Newton + one unseen planet on a circular ecliptic orbit (mass, radius, longitude; integrated)\"}\n\nPropose up to 3 new candidates (not already fitted), or stop."
+   }
+  ],
+  "output_config": {
+   "effort": "high",
+   "format": {
+    "type": "json_schema",
+    "schema": {
+     "type": "object",
+     "properties": {
+      "analysis": {
+       "type": "string"
+      },
+      "stop": {
+       "type": "boolean"
+      },
+      "proposals": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "properties": {
+         "kind": {
+          "type": "string",
+          "enum": [
+           "registered",
+           "central_radial"
+          ]
+         },
+         "family": {
+          "type": "string",
+          "description": "registered: exact name"
+         },
+         "slug": {
+          "type": "string",
+          "description": "central_radial: short id"
+         },
+         "radial": {
+          "type": "string",
+          "description": "central_radial: f(r)"
+         },
+         "params": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "lower": {
+             "type": "number"
+            },
+            "upper": {
+             "type": "number"
+            },
+            "initial": {
+             "type": "number"
+            },
+            "log_scale": {
+             "type": "boolean"
+            }
+           },
+           "required": [
+            "name",
+            "lower",
+            "upper",
+            "initial",
+            "log_scale"
+           ],
+           "additionalProperties": false
+          }
+         },
+         "rationale": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind",
+         "family",
+         "slug",
+         "radial",
+         "params",
+         "rationale"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "analysis",
+      "stop",
+      "proposals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "betas": [
+   "server-side-fallback-2026-07-01"
+  ],
+  "fallbacks": "default"
+ },
+ "response": {
+  "parsed": {
+   "analysis": "The best fit is a Keplerian ellipse with a\u22481.524 AU (log_a 0.4206), e\u22480.093 and P\u2248686 d, which looks like a Mars-like orbit. Residual RMS/sigma is 1 only because sigma was fitted, so that ratio says nothing about model adequacy. The time-binned mean east residuals still show coherent structure: \u221225, +27 and \u221238 arcsec in consecutive late bins. With about 37 points per bin, a mean should scatter by only about 5 arcsec (30/\u221a37), so these offsets look real. The periodogram peaks at 744 d and 628 d sit on either side of the orbital period, consistent with a modulation of the orbit. The weak 2940 d peak hints at a long-period perturber. The two half-ellipse fits suggest a small apsidal advance of about 0.04\u00b0/orbit, near Jupiter-induced precession for Mars. Two explanations fit this pattern. One is an unseen outer planet perturbing the orbit, giving both periodic terms and precession. The other, simpler one is a non-Newtonian central term that produces precession. I propose testing both.",
+   "stop": false,
+   "proposals": [
+    {
+     "kind": "registered",
+     "family": "perturbed-conic",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "The structured along-track residuals, the sidebands near the orbital period, the long-period peak and the small apsidal advance all fit an unseen outer planet (Jupiter-like) perturbing a Mars-like orbit."
+    },
+    {
+     "kind": "registered",
+     "family": "central-newton-plus-inverse-cube",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "Adds one parameter producing pure apsidal precession. This is the minimal central-force test of whether the ~0.04\u00b0/orbit perihelion drift explains the secular east residual trend."
+    },
+    {
+     "kind": "registered",
+     "family": "central-power-law",
+     "slug": "",
+     "radial": "",
+     "params": [],
+     "rationale": "An alternative central-force precession model with a free exponent n; it should converge to n\u22482 if Newton holds."
+    }
+   ]
+  },
+  "model": "claude-opus-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+   "input_tokens": 3380,
+   "output_tokens": 1027
+  }
+ }
+}

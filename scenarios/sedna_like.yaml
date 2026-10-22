@@ -1,0 +1,30 @@
+name: sedna_like
+description: >-
+  Distant, highly eccentric (e ≈ 0.85), inclined orbit with a period of ~11,000 years,
+  observed for 4 years in yearly opposition seasons: a short arc with a strong
+  period–eccentricity degeneracy. Modern astrometric precision.
+duration_days: 1460
+holdout_fraction: 0.25
+knowledge_tier: T1
+
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+
+bodies:
+  - id: target
+    truth:
+      type: keplerian
+      elements: {q: 76.0, e: 0.85, i_deg: 11.9, Omega_deg: 144.5, omega_deg: 311.3, t_p: 26000.0}
+
+schedule:
+  type: seasons
+  cadence_days: 3
+  jitter_days: 1
+  windows: [[200, 320]]
+  visibility:
+    min_solar_elongation_deg: 60
+    dropout_prob: 0.3
+
+noise:
+  - {type: gaussian, sigma_arcsec: 0.5}

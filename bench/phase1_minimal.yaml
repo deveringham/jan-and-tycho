@@ -1,0 +1,10 @@
+name: phase1_minimal
+scenarios: [scenarios/circle_coplanar.yaml, scenarios/mars_like.yaml]
+strategies: [ptolemy.fourier, classical.lsq]
+seeds: {start: 0, count: 3}
+viz:
+  per_run: first_seed
+  animations: none
+  comparison:
+    - {figure: leaderboard}
+    - {figure: extrapolation_curves}

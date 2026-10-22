@@ -1,0 +1,27 @@
+name: figure_eight
+description: A lemniscate (figure-eight) path, half-width 2.5 AU, period 2000 d — periodic, kinematic.
+duration_days: 8000
+holdout_fraction: 0.25
+knowledge_tier: T1
+observer:
+  type: keplerian
+  elements: {q: 0.98329, e: 0.0167, i_deg: 0.0, Omega_deg: 0.0, omega_deg: 102.94, t_p: 2.0}
+bodies:
+  - id: target
+    truth:
+      type: kinematic_parametric
+      curve: figure_eight
+      a_au: 2.5
+      center_au: [0.6, 0.0]
+      i_deg: 4.0
+      Omega_deg: 20.0
+      period_days: 2000
+schedule:
+  type: regular
+  cadence_days: 10
+  jitter_days: 2
+  visibility:
+    min_solar_elongation_deg: 15
+    dropout_prob: 0.2
+noise:
+  - {type: gaussian, sigma_arcsec: 60}

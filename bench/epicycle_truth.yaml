@@ -1,0 +1,10 @@
+name: epicycle_truth
+scenarios: [scenarios/epicycle_truth.yaml]
+strategies: [bayes.nested, classical.lsq, ptolemy.fourier, gp.sky]
+seeds: {start: 0, count: 5}
+viz:
+  per_run: first_seed
+  animations: first_seed
+  comparison:
+    - {figure: leaderboard}
+    - {figure: strategy_race, seed: 0}

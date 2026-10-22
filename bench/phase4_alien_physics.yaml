@@ -1,0 +1,44 @@
+name: phase4_alien_physics
+# Phase 4 acceptance: which strategies recover which force laws, and who honestly declines
+# to claim a law for the kinematic paths (rectangle, figure-eight)? classical.lsq is run
+# once per dynamical family, so the matrix shows what each fixed model claims; bayes.nested
+# weighs Newton, a power law and Le Verrier's unseen perturber by their evidence.
+scenarios:
+  - scenarios/hooke_trap.yaml
+  - scenarios/precessing_power_law.yaml
+  - scenarios/gr_like_precession.yaml
+  - scenarios/yukawa.yaml
+  - scenarios/hidden_perturber.yaml
+  - scenarios/rectangle.yaml
+  - scenarios/figure_eight.yaml
+strategies:
+  - classical.lsq
+  - bayes.nested
+  - kepler.triangulate
+  - discovery.sindy
+  - discovery.pysr
+  - piml.ude
+  - piml.neural_ode
+  - piml.hnn
+strategy_overrides:
+  classical.lsq:
+    family:
+      - ellipse
+      - central-power-law
+      - central-hooke
+      - central-yukawa
+      - central-newton-plus-inverse-cube
+      - perturbed-conic
+  bayes.nested:
+    families:
+      - [conic-elliptic, central-power-law, perturbed-conic]
+seeds: {start: 0, count: 2}
+timeout_minutes: 30
+viz:
+  per_run: first_seed
+  animations: none
+  comparison:
+    - {figure: rejection_matrix}
+    - {figure: structural_success}
+    - {figure: leaderboard}
+    - {figure: accuracy_vs_runtime}

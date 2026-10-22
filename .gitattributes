@@ -1,0 +1,3 @@
+# Collapse generated files in GitHub diffs and keep them out of language stats.
+uv.lock linguist-generated=true
+notebooks/*.ipynb linguist-generated=true

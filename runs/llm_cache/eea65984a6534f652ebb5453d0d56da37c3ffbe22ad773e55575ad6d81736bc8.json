@@ -1,0 +1,123 @@
+{
+ "request": {
+  "model": "claude-opus-5-5",
+  "max_tokens": 16000,
+  "system": "You assist an automated astronomer who infers how a body moves from angles-only sky observations (ecliptic longitude/latitude seen from an observer whose orbit is known). Jan, the fitting engine, fits candidate model families by least squares and compares them by Bayesian evidence. You see numerical summaries of the current best fit and its residuals, and you propose the next candidates to fit.\n\nA candidate is either a registered family (by exact name) or a new central force law: the radial acceleration f(r) in AU/day^2 (negative = attractive) as an expression in r (heliocentric distance, AU), GM (the Sun's, 2.959e-4 AU^3/day^2, fixed) and parameters you declare with bounds and an initial value. Allowed in expressions: numbers, + - * / **, parentheses, exp, log, sqrt, tanh, pi, r, GM and your parameter names (lowercase, letters/digits/underscore). Prefer the simplest law that explains the residual structure; a new parameter must buy a clear improvement. Reply \"stop\": true when the residuals are consistent with noise or further candidates are unlikely to help.",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Data and current best fit:\n{\n \"best_family\": \"perturbed-conic\",\n \"best_fit_parameters\": {\n  \"Omega\": 1.293,\n  \"cos_i\": 0.9999,\n  \"e\": 0.04638,\n  \"lambda0\": 5.78,\n  \"lambda_pert\": 6.207,\n  \"log_a\": 2.956,\n  \"log_a_pert\": 4.278,\n  \"log_m_pert\": -4.605,\n  \"varpi\": 3.002\n },\n \"heliocentric_distance_range_au\": [\n  18.52,\n  20.1\n ],\n \"n_observations\": 437,\n \"noise_sigma_arcsec\": 5.745,\n \"noise_sigma_source\": \"fitted\",\n \"residual_periodogram_peaks\": [\n  {\n   \"period_days\": 1340.0,\n   \"power\": 0.026\n  },\n  {\n   \"period_days\": 4270.0,\n   \"power\": 0.026\n  },\n  {\n   \"period_days\": 460.0,\n   \"power\": 0.023\n  }\n ],\n \"residual_rms_arcsec\": 5.745,\n \"residual_rms_over_sigma\": 1.0,\n \"residuals_by_heliocentric_distance_au\": [\n  {\n   \"from\": 18.52,\n   \"mean_east_arcsec\": -0.009761,\n   \"mean_north_arcsec\": 3.907,\n   \"rms_arcsec\": 6.299,\n   \"to\": 18.94\n  },\n  {\n   \"from\": 18.94,\n   \"mean_east_arcsec\": 0.3349,\n   \"mean_north_arcsec\": 4.554,\n   \"rms_arcsec\": 6.26,\n   \"to\": 19.27\n  },\n  {\n   \"from\": 19.27,\n   \"mean_east_arcsec\": -0.3243,\n   \"mean_north_arcsec\": 4.349,\n   \"rms_arcsec\": 6.076,\n   \"to\": 19.5\n  },\n  {\n   \"from\": 19.5,\n   \"mean_east_arcsec\": -0.2909,\n   \"mean_north_arcsec\": 3.31,\n   \"rms_arcsec\": 5.459,\n   \"to\": 19.72\n  },\n  {\n   \"from\": 19.72,\n   \"mean_east_arcsec\": 1.522,\n   \"mean_north_arcsec\": 1.221,\n   \"rms_arcsec\": 5.73,\n   \"to\": 19.88\n  },\n  {\n   \"from\": 19.88,\n   \"mean_east_arcsec\": -1.182,\n   \"mean_north_arcsec\": 0.7614,\n   \"rms_arcsec\": 5.715,\n   \"to\": 20.0\n  },\n  {\n   \"from\": 20.0,\n   \"mean_east_arcsec\": -0.7557,\n   \"mean_north_arcsec\": -0.2782,\n   \"rms_arcsec\": 5.271,\n   \"to\": 20.08\n  },\n  {\n   \"from\": 20.08,\n   \"mean_east_arcsec\": 0.8256,\n   \"mean_north_arcsec\": -1.466,\n   \"rms_arcsec\": 5.079,\n   \"to\": 20.1\n  }\n ],\n \"residuals_by_time\": [\n  {\n   \"from\": 30.13,\n   \"mean_east_arcsec\": 0.001758,\n   \"mean_north_arcsec\": 4.186,\n   \"rms_arcsec\": 6.328,\n   \"to\": 2238.0\n  },\n  {\n   \"from\": 2238.0,\n   \"mean_east_arcsec\": 0.01626,\n   \"mean_north_arcsec\": 3.242,\n   \"rms_arcsec\": 5.851,\n   \"to\": 4175.0\n  },\n  {\n   \"from\": 4175.0,\n   \"mean_east_arcsec\": 0.1926,\n   \"mean_north_arcsec\": 1.535,\n   \"rms_arcsec\": 4.501,\n   \"to\": 6323.0\n  },\n  {\n   \"from\": 6323.0,\n   \"mean_east_arcsec\": -0.4756,\n   \"mean_north_arcsec\": 2.698,\n   \"rms_arcsec\": 5.877,\n   \"to\": 8382.0\n  },\n  {\n   \"from\": 8382.0,\n   \"mean_east_arcsec\": 0.8235,\n   \"mean_north_arcsec\": -0.3479,\n   \"rms_arcsec\": 5.497,\n   \"to\": 10320.0\n  },\n  {\n   \"from\": 10320.0,\n   \"mean_east_arcsec\": -0.2636,\n   \"mean_north_arcsec\": -1.061,\n   \"rms_arcsec\": 5.3,\n   \"to\": 12200.0\n  },\n  {\n   \"from\": 12200.0,\n   \"mean_east_arcsec\": 0.3768,\n   \"mean_north_arcsec\": -1.178,\n   \"rms_arcsec\": 4.961,\n   \"to\": 14430.0\n  },\n  {\n   \"from\": 14430.0,\n   \"mean_east_arcsec\": -1.515,\n   \"mean_north_arcsec\": 1.11,\n   \"rms_arcsec\": 5.521,\n   \"to\": 16400.0\n  },\n  {\n   \"from\": 16400.0,\n   \"mean_east_arcsec\": 1.3,\n   \"mean_north_arcsec\": 3.307,\n   \"rms_arcsec\": 5.697,\n   \"to\": 18340.0\n  },\n  {\n   \"from\": 18340.0,\n   \"mean_east_arcsec\": -0.5761,\n   \"mean_north_arcsec\": 6.714,\n   \"rms_arcsec\": 7.353,\n   \"to\": 20430.0\n  }\n ],\n \"span_days\": 20400.0,\n \"two_half_ellipse_fits\": {\n  \"delta_varpi_deg_per_orbit\": 4.904,\n  \"period_days_first_half\": 30710.0,\n  \"period_days_second_half\": 30780.0\n }\n}\n\nCandidates fitted so far (log-evidence, Laplace approximation):\n[\n {\n  \"family\": \"perturbed-conic\",\n  \"law\": \"f(r) = -GM/r**2 with {'m_pert': 0.01, 'a_pert': 72.09}\",\n  \"ln_evidence\": 7826.19\n },\n {\n  \"family\": \"central-power-law\",\n  \"law\": \"f(r) = -C*r**(-n) with {'C': 0.0003535, 'n': 2.06}\",\n  \"ln_evidence\": 7642.422\n },\n {\n  \"family\": \"central-newton-plus-inverse-cube\",\n  \"law\": \"f(r) = -GM/r**2*(1 + eps/r) with {'eps': 0.01}\",\n  \"ln_evidence\": 6807.498\n },\n {\n  \"family\": \"conic-elliptic\",\n  \"law\": \"Newton (-GM/r**2)\",\n  \"ln_evidence\": 6805.379\n }\n]\n\nRegistered families: {\"central-hooke\": \"f = -k r (integrated)\", \"central-newton-plus-inverse-cube\": \"f = -GM/r^2 (1 + eps/r) (integrated)\", \"central-power-law\": \"f = -C r^-n, free n and C (integrated)\", \"central-yukawa\": \"f = -GM/r^2 (1 + r/lam) exp(-r/lam) (integrated)\", \"circle\": \"circular Keplerian orbit (4 parameters)\", \"conic-elliptic\": \"Keplerian ellipse under Newtonian gravity (6 elements)\", \"conic-hyperbolic\": \"Keplerian hyperbola (unbound)\", \"epicycles\": \"Ptolemaic geocentric deferent + epicycle\", \"equant-circle\": \"Kepler's vicarious hypothesis: eccentric circle with an equant\", \"perturbed-conic\": \"Newton + one unseen planet on a circular ecliptic orbit (mass, radius, longitude; integrated)\"}\n\nPropose up to 3 new candidates (not already fitted), or stop."
+   }
+  ],
+  "output_config": {
+   "effort": "high",
+   "format": {
+    "type": "json_schema",
+    "schema": {
+     "type": "object",
+     "properties": {
+      "analysis": {
+       "type": "string"
+      },
+      "stop": {
+       "type": "boolean"
+      },
+      "proposals": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "properties": {
+         "kind": {
+          "type": "string",
+          "enum": [
+           "registered",
+           "central_radial"
+          ]
+         },
+         "family": {
+          "type": "string",
+          "description": "registered: exact name"
+         },
+         "slug": {
+          "type": "string",
+          "description": "central_radial: short id"
+         },
+         "radial": {
+          "type": "string",
+          "description": "central_radial: f(r)"
+         },
+         "params": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "lower": {
+             "type": "number"
+            },
+            "upper": {
+             "type": "number"
+            },
+            "initial": {
+             "type": "number"
+            },
+            "log_scale": {
+             "type": "boolean"
+            }
+           },
+           "required": [
+            "name",
+            "lower",
+            "upper",
+            "initial",
+            "log_scale"
+           ],
+           "additionalProperties": false
+          }
+         },
+         "rationale": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind",
+         "family",
+         "slug",
+         "radial",
+         "params",
+         "rationale"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "analysis",
+      "stop",
+      "proposals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "betas": [
+   "server-side-fallback-2026-07-01"
+  ],
+  "fallbacks": "default"
+ },
+ "response": {
+  "parsed": {
+   "analysis": "The perturbed-conic family is decisively best: \u0394ln Z \u2248 +184 over the free power law and \u2248 +1020 over a pure Kepler ellipse. The body sits at about 18.5\u201320.1 AU, a Uranus-like orbit with a period near 30,700 days. The fitted perturber is suspicious: m = 0.01 M_sun and a = 72 AU look like round numbers and may be bound-limited values rather than a physical solution.\n\nThe residual RMS equals the fitted noise level (RMS/\u03c3 = 1.0, \u03c3 \u2248 5.7\"). The periodogram is flat, with peak powers of only about 0.026. East residuals show no systematic structure.\n\nThe one remaining signal is in latitude. The mean north residual drifts slowly in time: about +4\" early, about \u22121\" mid-span, and +6.7\" at the end. With roughly 40 points per bin, each bin mean has an uncertainty of about 0.9\", so this drift looks significant. It is a slow out-of-plane signal.\n\nNo central force law f(r) can produce out-of-plane motion, because any central force keeps the orbit in a fixed plane. The registered perturber is restricted to a circular orbit in the ecliptic. Its leading pull is also in-plane, so it is unlikely to remove the latitude drift. The power-law, Yukawa and inverse-cube variants only change in-plane precession, which the perturbed conic already captures.\n\nModelling the remaining structure would need an inclined perturber, or a node/inclination drift term. Neither is available among the registered families or expressible as a central law. Further central-law candidates are very unlikely to raise the evidence, so I recommend stopping. I suggest flagging the latitude systematics, and the possibly bound-limited perturber parameters, for a future non-coplanar perturber model.",
+   "stop": true,
+   "proposals": []
+  },
+  "model": "claude-opus-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+   "input_tokens": 3670,
+   "output_tokens": 1215
+  }
+ }
+}
